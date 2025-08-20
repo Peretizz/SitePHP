@@ -55,7 +55,7 @@
         
         foreach ($series as $serie) {
         ?>
-        <div class="col-3 mb-5 mx-3 px-5">
+        <div class="col-3 mb-5 mx-5 px-5">
           <div class="card bg-dark text-white border border-secondary" style="width: 18rem; height: 43rem;">
             <img src="uploads/<?=$serie['imagem']?>" style="width: 285px; height: 430px; object-fit: cover;" class="card-img-top">
             <div class="card-body">
