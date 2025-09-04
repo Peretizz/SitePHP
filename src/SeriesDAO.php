@@ -16,11 +16,13 @@ class SeriesDAO
         $imagem = Util::salvarArquivo();
         $temporadas = $dados['temporadas'];
         $episodios = $dados['episodios'];
+        $idcategoria = $dados['idcategoria'];
+        $idclassificacao = $dados['idclassificacao'];
 
         $sql = "INSERT INTO series
-                (titulo, diretor, ano, elenco, premios, imagem, temporadas, episodios) 
+                (titulo, diretor, ano, elenco, premios, imagem, temporadas, episodios, idcategoria, idclassificacao) 
                 VALUES 
-                (:titulo, :diretor, :ano, :elenco, :premios, :imagem, :temporadas, :episodios)";
+                (:titulo, :diretor, :ano, :elenco, :premios, :imagem, :temporadas, :episodios, :idcategoria, :idclassificacao)";
 
         $stmt = $conexao->prepare($sql);
         $stmt->bindParam(':titulo', $titulo);
@@ -31,6 +33,8 @@ class SeriesDAO
         $stmt->bindParam(':imagem', $imagem);
         $stmt->bindParam(':temporadas', $temporadas);
         $stmt->bindParam(':episodios', $episodios);
+        $stmt->bindParam(':idcategoria', $idcategoria);
+        $stmt->bindParam(':idclassificacao', $idclassificacao);
 
         $stmt->execute();
     }

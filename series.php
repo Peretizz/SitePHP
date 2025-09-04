@@ -29,6 +29,32 @@
               <li class="nav-item">
                 <a class="nav-link" href="index.php" style="color: #f7d1ba">Home</a>
               </li>
+              <!-- Added category filter navigation like in movies -->
+              <?php
+              require_once "src/SeriesDAO.php";
+              $series = SeriesDAO::listar();
+              
+              $categorias = array();
+              foreach ($series as $serie) {
+                $categoria = $serie['nomecategoria'];
+                $jaExiste = false;
+                foreach ($categorias as $catExistente) {
+                  if ($catExistente == $categoria) {
+                    $jaExiste = true;
+                  }
+                }
+                if (!$jaExiste) {
+                  $categorias[] = $categoria;
+                }
+              }
+              
+              foreach ($categorias as $categoria) {
+              ?>
+              <li class="nav-item">
+                <a class="nav-link" href="#<?=$categoria?>" style="color: #f7d1ba"><?=$categoria?></a>
+              </li>
+              <?php } ?>
+              
               <li class="nav-item">
                 <a class="nav-link" href="filmes.php" style="color: #f7d1ba">Filmes</a>
               </li>
@@ -46,17 +72,22 @@
   </header>
 
   <main class="w-75 mt-1 m-auto">
-    <section class="mb-5">
-      <h2 class="text-center mb-4" style="color: #f7d1ba">Séries</h2>
+    
+    <!-- Changed to category sections like in movies page -->
+    <?php
+    foreach ($categorias as $categoria) {
+    ?>
+    <section id="<?=$categoria?>" class="mb-5">
+      <h2 class="text-center mb-4" style="color: #f7d1ba"><?=$categoria?></h2>
       <div class="row">
         <?php
-        require_once "src/SeriesDAO.php";
-        $series = SeriesDAO::listar();
         $seriecont = 0; 
         foreach ($series as $serie) {
+          if ($serie['nomecategoria'] == $categoria) {
         ?>
         <div class="col-3 mb-5 mx-5 px-5">
-          <div class="card bg-dark text-white border border-secondary" style="width: 18rem; height: 43rem;">
+          <!-- Increased card height to 50rem to match movie cards -->
+          <div class="card bg-dark text-white border border-secondary" style="width: 18rem; height: 45rem;">
             <img src="uploads/<?=$serie['imagem']?>" style="width: 285px; height: 430px; object-fit: cover;" class="card-img-top">
             <div class="card-body">
               <h5 class="card-title"><?=$serie['titulo']?></h5>
@@ -64,28 +95,29 @@
                 <b>Ano: <?=$serie['ano']?> <br>
                   Direção: <?=$serie['diretor']?><br>
                   Elenco: <?=$serie['elenco']?> <br>
+                  Categoria: <?=$serie['nomecategoria']?> <br>
                   Temporadas: <?=$serie['temporadas']?> <br>
                   Episódios: <?=$serie['episodios']?> </b> <br>
               </p>
-              <?php
-              if ($serie['premios'] == "") {
-                ?> <br> <?php
-              }
-              else{?>
-              <div class="d-flex">
-                <div class="mx-5"><b><button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalSerie<?=$seriecont?>">
+              <!-- Changed layout to match movies exactly with d-flex and mx-5 spacing -->
+              <div class="d-flex mt-3">
+                <img src="img/<?=$serie['nomeclassificacao']?>.jpg" alt="<?=$serie['nomeclassificacao']?>" style="width: 30px; height: 30px;">
+                <?php if ($serie['premios'] != "") { ?>
+                <div class="mx-5"><b><button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalSerie<?=$categoria?><?=$seriecont?>">
                       Prêmios</button></b>
                 </div>
-              </div>              
-              <div class="modal fade" id="modalSerie<?=$seriecont?>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-hidden="true">
+                <?php } ?>
+              </div>
+              <?php if ($serie['premios'] != "") { ?>
+              <div class="modal fade" id="modalSerie<?=$categoria?><?=$seriecont?>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-hidden="true">
                 <div class="modal-dialog">
                   <div class="modal-content">
                     <div class="modal-header">
-                      <h1 class="modal-title fs-5 text-dark">Prêmios</h1>
+                      <h1 class="modal-title fs-5 text-dark">Prêmios - <?=$serie['titulo']?></h1>
                       <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body text-dark">
-                      <a><?=$serie['premios']?></a>
+                      <p><?=$serie['premios']?></p>
                     </div>
                     <div class="modal-footer">
                       <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
@@ -93,18 +125,18 @@
                   </div>
                 </div>
               </div>
-              <?php 
-              }
-              ?>
+              <?php } ?>
             </div>
           </div>
         </div>
         <?php
+          $seriecont++; 
+          }
         }
-        $seriecont++; 
         ?>
       </div>
     </section>
+    <?php } ?>
   </main>
 
   <footer class="text-center text-white" style="background-color: #1c5052">

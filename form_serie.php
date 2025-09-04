@@ -73,6 +73,36 @@
                     <label for="nome" class="form-label">Prêmios</label>
                     <input type="text" class="form-control" name="premios" placeholder="Digite os Prêmios da Série">
                 </div>
+                <!-- Added category dropdown field -->
+                <div class="col-md-6">
+                    <label for="idcategoria" class="form-label">Categoria</label>
+                    <select name="idcategoria" class="form-select" required>
+                        <?php
+                        require_once "src/CategoriaDAO.php";
+                        $categoria = CategoriaDAO::listarCategoria();
+                        for ($i = 0; $i < count($categoria); $i++) {
+                            ?>
+                            <option value="<?= $categoria[$i]["idcategoria"] ?>"><?= $categoria[$i]["nomecategoria"] ?></option>
+                            <?php
+                        }
+                        ?>
+                    </select>
+                </div>
+                <!-- Added classification dropdown field -->
+                <div class="col-md-6">
+                    <label for="idclassificacao" class="form-label">Classificação</label>
+                    <select name="idclassificacao" class="form-select" required>
+                        <?php
+                        require_once "src/ClassificacaoDAO.php";
+                        $classificacao = ClassificacaoDAO::listarClassificacao();
+                        for ($j = 0; $j < count($classificacao); $j++) {
+                            ?>
+                            <option value="<?= $classificacao[$j]["idclassificacao"] ?>"><?= $classificacao[$j]["nomeclassificacao"] ?></option>
+                            <?php
+                        }
+                        ?>
+                    </select>
+                </div>
                 <div class="col-md-6">
                     <label for="nome" class="form-label">Temporadas</label>
                     <input type="number" class="form-control" name="temporadas"

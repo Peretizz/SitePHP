@@ -56,7 +56,8 @@
         ?>
     
         <div class="col-3 mb-5 mx-5 px-5">
-          <div class="card bg-dark text-white border border-secondary" style="width: 18rem; height: 43rem;">
+          <!-- Increased card height to 50rem to match series cards and accommodate all content -->
+          <div class="card bg-dark text-white border border-secondary" style="width: 18rem; height: 45rem;">
             <img src="uploads/<?=$filme['imagem']?>" style="width: 285px; height: 430px; object-fit: cover;" class="card-img-top">
             <div class="card-body">
               <h5 class="card-title"><?=$filme['titulo']?></h5>
@@ -112,7 +113,8 @@
         ?>
     
         <div class="col-3 mb-5 mx-5 px-5">
-          <div class="card bg-dark text-white border border-secondary" style="width: 18rem; height: 43rem;">
+          <!-- Increased card height to 50rem to match movie cards -->
+          <div class="card bg-dark text-white border border-secondary" style="width: 18rem; height: 45rem;">
             <img src="uploads/<?=$serie['imagem']?>" style="width: 285px; height: 430px; object-fit: cover;" class="card-img-top">
             <div class="card-body">
               <h5 class="card-title"><?=$serie['titulo']?></h5>
@@ -120,18 +122,24 @@
                 <b>Ano: <?=$serie['ano']?> <br>
                   Direção: <?=$serie['diretor']?><br>
                   Elenco: <?=$serie['elenco']?> <br>
+                  Categoria: <?=$serie['nomecategoria']?> <br>
                   Temporadas: <?=$serie['temporadas']?> <br>
                   Episódios: <?=$serie['episodios']?> </b> <br>
               </p>
-              <?php
-              if ($serie['premios'] == "") {
-              }
-              else{?>
-              <div class="d-flex">
+              
+              <!-- Changed layout to match movies exactly with d-flex and mx-5 spacing -->
+              <div class="d-flex mt-3">
+                <img src="img/<?=$serie['nomeclassificacao']?>.jpg" alt="<?=$serie['nomeclassificacao']?>" style="width: 30px; height: 30px;">
+                <?php if ($serie['premios'] == "") { ?>
+                </div>
+                <?php } else { ?>
                 <div class="mx-5"><b><button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalSerie<?=$seriecont?>">
                       Prêmios</button></b>
                 </div>
-              </div>              
+                <?php } ?>
+              </div>
+              <?php if ($serie['premios'] != "") { ?>
+              <!-- Modal moved outside card-body -->
               <div class="modal fade" id="modalSerie<?=$seriecont?>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-hidden="true">
                 <div class="modal-dialog">
                   <div class="modal-content">
@@ -148,9 +156,7 @@
                   </div>
                 </div>
               </div>
-              <?php 
-              }
-              ?>
+              <?php } ?>
             </div>
           </div>
         </div>
