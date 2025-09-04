@@ -115,7 +115,7 @@
           <div class="card bg-dark text-white border border-secondary" style="width: 18rem; height: 43rem;">
             <img src="uploads/<?=$serie['imagem']?>" style="width: 285px; height: 430px; object-fit: cover;" class="card-img-top">
             <div class="card-body">
-              <h5 class="card-title"><?=$serie['titulo']?></h5>d
+              <h5 class="card-title"><?=$serie['titulo']?></h5>
               <p class="card-text texto-serie">
                 <b>Ano: <?=$serie['ano']?> <br>
                   Direção: <?=$serie['diretor']?><br>

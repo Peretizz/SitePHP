@@ -38,7 +38,7 @@ class SeriesDAO
     public static function listar()
     {
         $conexao = ConexaoBD::conectar();
-        $sql = "SELECT * FROM series"; // Updated table name from 'filme' to 'series'
+        $sql = "select * from series, classificacao, categoria where series.idclassificacao = classificacao.idclassificacao and series.idcategoria = categoria.idcategoria"; 
         $stmt = $conexao->prepare($sql);
         $stmt->execute();
         $series = $stmt->fetchAll(PDO::FETCH_ASSOC);
