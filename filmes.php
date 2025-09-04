@@ -79,6 +79,7 @@
       <h2 class="text-center mb-4" style="color: #f7d1ba"><?=$categoria?></h2>
       <div class="row">
         <?php
+        $filmecont = 0; 
         foreach ($filmes as $filme) {
           if ($filme['nomecategoria'] == $categoria) {
         ?>
@@ -100,19 +101,19 @@
                 </div> <?php
               }
               else{?>
-                <div class="mx-5"><b><button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#<?=$filme['titulo']?><?=$categoria?>">
+                <div class="mx-5"><b><button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalFilme<?=$categoria?><?=$filmecont?>">
                       Prêmios</button></b>
                 </div>
               </div>              
-              <div class="modal fade" id="<?=$filme['titulo']?><?=$categoria?>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-hidden="true">
+              <div class="modal fade" id="modalFilme<?=$categoria?><?=$filmecont?>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-hidden="true">
                 <div class="modal-dialog">
                   <div class="modal-content">
                     <div class="modal-header">
-                      <h1 class="modal-title fs-5 text-dark">Prêmios</h1>
+                      <h1 class="modal-title fs-5 text-dark">Prêmios - <?=$filme['titulo']?></h1>
                       <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body text-dark">
-                      <a><?=$filme['premios']?></a>
+                      <p><?=$filme['premios']?></p>
                     </div>
                     <div class="modal-footer">
                       <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
@@ -128,6 +129,7 @@
           </div>
         </div>
         <?php
+          $filmecont++; 
           }
         }
         ?>

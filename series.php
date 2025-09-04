@@ -52,7 +52,7 @@
         <?php
         require_once "src/SeriesDAO.php";
         $series = SeriesDAO::listar();
-        
+        $seriecont = 0; 
         foreach ($series as $serie) {
         ?>
         <div class="col-3 mb-5 mx-5 px-5">
@@ -73,11 +73,11 @@
               }
               else{?>
               <div class="d-flex">
-                <div class="mx-5"><b><button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#<?=$serie['titulo']?>">
+                <div class="mx-5"><b><button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalSerie<?=$seriecont?>">
                       Prêmios</button></b>
                 </div>
               </div>              
-              <div class="modal fade" id="<?=$serie['titulo']?>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-hidden="true">
+              <div class="modal fade" id="modalSerie<?=$seriecont?>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-hidden="true">
                 <div class="modal-dialog">
                   <div class="modal-content">
                     <div class="modal-header">
@@ -101,6 +101,7 @@
         </div>
         <?php
         }
+        $seriecont++; 
         ?>
       </div>
     </section>
