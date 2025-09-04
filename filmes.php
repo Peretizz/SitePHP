@@ -86,7 +86,7 @@
         <div class="col-3 mb-5 mx-5 px-5">
           <div class="card bg-dark text-white border border-secondary" style="width: 18rem; height: 45rem;">
             <img src="uploads/<?=$filme['imagem']?>" style="width: 285px; height: 430px; object-fit: cover;" class="card-img-top">
-            <div class="card-body">
+            <div class="card-body d-flex flex-column">
               <h5 class="card-title"><?=$filme['titulo']?></h5>
               <p class="card-text texto-filme">
                 <b>Ano: <?=$filme['ano']?> <br>
@@ -94,37 +94,15 @@
                   Elenco: <?=$filme['elenco']?> <br>
                   Categoria: <?=$filme['nomecategoria']?> </b> <br>
               </p>
-              <div class="d-flex mt-3">
+              <div class="d-flex mt-auto">
                 <img src="img/<?=$filme['nomeclassificacao']?>.jpg" alt="<?=$filme['nomeclassificacao']?>" style="width: 30px; height: 30px;">
               <?php
-              if ($filme['premios'] == "") { ?>
-                </div> <?php
-              }
-              else{?>
+              if ($filme['premios'] != "") { ?>
                 <div class="mx-5"><b><button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalFilme<?=$categoria?><?=$filmecont?>">
                       Prêmios</button></b>
                 </div>
-              </div>              
-              <div class="modal fade" id="modalFilme<?=$categoria?><?=$filmecont?>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-hidden="true">
-                <div class="modal-dialog">
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      <h1 class="modal-title fs-5 text-dark">Prêmios - <?=$filme['titulo']?></h1>
-                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body text-dark">
-                      <p><?=$filme['premios']?></p>
-                    </div>
-                    <div class="modal-footer">
-                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
-                    </div>
-                  </div>
-                </div>
+              <?php } ?>
               </div>
-              <?php 
-              }
-              ?>
-             
             </div>
           </div>
         </div>
@@ -137,6 +115,38 @@
     </section>
     <?php } ?>
   </main>
+
+  <!-- Fixed modal ID synchronization by using same counter logic -->
+  <?php
+  foreach ($categorias as $categoria) {
+    $filmecont = 0; 
+    foreach ($filmes as $filme) {
+      if ($filme['nomecategoria'] == $categoria) {
+        if ($filme['premios'] != "") {
+  ?>
+  <div class="modal fade" id="modalFilme<?=$categoria?><?=$filmecont?>" tabindex="-1" aria-labelledby="modalFilme<?=$categoria?><?=$filmecont?>Label" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content bg-dark text-white">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="modalFilme<?=$categoria?><?=$filmecont?>Label">Prêmios de <?=$filme['titulo']?></h1>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <?=$filme['premios']?>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <?php
+        }
+        $filmecont++; 
+      }
+    }
+  }
+  ?>
 
   <footer class="text-center text-white" style="background-color: #1c5052">
     <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2)">    

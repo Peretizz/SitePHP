@@ -56,10 +56,9 @@
         ?>
     
         <div class="col-3 mb-5 mx-5 px-5">
-          <!-- Increased card height to 50rem to match series cards and accommodate all content -->
           <div class="card bg-dark text-white border border-secondary" style="width: 18rem; height: 45rem;">
             <img src="uploads/<?=$filme['imagem']?>" style="width: 285px; height: 430px; object-fit: cover;" class="card-img-top">
-            <div class="card-body">
+            <div class="card-body d-flex flex-column">
               <h5 class="card-title"><?=$filme['titulo']?></h5>
               <p class="card-text texto-filme">
                 <b>Ano: <?=$filme['ano']?> <br>
@@ -67,7 +66,7 @@
                   Elenco: <?=$filme['elenco']?> <br>
                   Categoria: <?=$filme['nomecategoria']?> </b> <br>
               </p>
-              <div class="d-flex mt-3">
+              <div class="d-flex mt-auto">
                 <img src="img/<?=$filme['nomeclassificacao']?>.jpg" alt="<?=$filme['nomeclassificacao']?>" style="width: 30px; height: 30px;">
               <?php
               if ($filme['premios'] == "") {
@@ -113,10 +112,9 @@
         ?>
     
         <div class="col-3 mb-5 mx-5 px-5">
-          <!-- Increased card height to 50rem to match movie cards -->
           <div class="card bg-dark text-white border border-secondary" style="width: 18rem; height: 45rem;">
             <img src="uploads/<?=$serie['imagem']?>" style="width: 285px; height: 430px; object-fit: cover;" class="card-img-top">
-            <div class="card-body">
+            <div class="card-body d-flex flex-column">
               <h5 class="card-title"><?=$serie['titulo']?></h5>
               <p class="card-text texto-serie">
                 <b>Ano: <?=$serie['ano']?> <br>
@@ -127,8 +125,7 @@
                   Episódios: <?=$serie['episodios']?> </b> <br>
               </p>
               
-              <!-- Changed layout to match movies exactly with d-flex and mx-5 spacing -->
-              <div class="d-flex mt-3">
+              <div class="d-flex mt-auto">
                 <img src="img/<?=$serie['nomeclassificacao']?>.jpg" alt="<?=$serie['nomeclassificacao']?>" style="width: 30px; height: 30px;">
                 <?php if ($serie['premios'] == "") { ?>
                 </div>
@@ -139,7 +136,6 @@
                 <?php } ?>
               </div>
               <?php if ($serie['premios'] != "") { ?>
-              <!-- Modal moved outside card-body -->
               <div class="modal fade" id="modalSerie<?=$seriecont?>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-hidden="true">
                 <div class="modal-dialog">
                   <div class="modal-content">

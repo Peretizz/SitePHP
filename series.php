@@ -29,7 +29,6 @@
               <li class="nav-item">
                 <a class="nav-link" href="index.php" style="color: #f7d1ba">Home</a>
               </li>
-              <!-- Added category filter navigation like in movies -->
               <?php
               require_once "src/SeriesDAO.php";
               $series = SeriesDAO::listar();
@@ -73,7 +72,6 @@
 
   <main class="w-75 mt-1 m-auto">
     
-    <!-- Changed to category sections like in movies page -->
     <?php
     foreach ($categorias as $categoria) {
     ?>
@@ -86,10 +84,9 @@
           if ($serie['nomecategoria'] == $categoria) {
         ?>
         <div class="col-3 mb-5 mx-5 px-5">
-          <!-- Increased card height to 50rem to match movie cards -->
           <div class="card bg-dark text-white border border-secondary" style="width: 18rem; height: 45rem;">
             <img src="uploads/<?=$serie['imagem']?>" style="width: 285px; height: 430px; object-fit: cover;" class="card-img-top">
-            <div class="card-body">
+            <div class="card-body d-flex flex-column">
               <h5 class="card-title"><?=$serie['titulo']?></h5>
               <p class="card-text texto-serie">
                 <b>Ano: <?=$serie['ano']?> <br>
@@ -99,8 +96,7 @@
                   Temporadas: <?=$serie['temporadas']?> <br>
                   Episódios: <?=$serie['episodios']?> </b> <br>
               </p>
-              <!-- Changed layout to match movies exactly with d-flex and mx-5 spacing -->
-              <div class="d-flex mt-3">
+              <div class="d-flex mt-auto">
                 <img src="img/<?=$serie['nomeclassificacao']?>.jpg" alt="<?=$serie['nomeclassificacao']?>" style="width: 30px; height: 30px;">
                 <?php if ($serie['premios'] != "") { ?>
                 <div class="mx-5"><b><button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalSerie<?=$categoria?><?=$seriecont?>">
